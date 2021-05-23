@@ -3,8 +3,10 @@ import { Routes, RouterModule } from '@angular/router';
 import { InventoryComponent } from './pages/inventory/inventory.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/inventory', pathMatch: 'full' },
+  { path: '', redirectTo: 'inventory', pathMatch: 'full' },
   { path: 'inventory', component:InventoryComponent },
+  { path: '**', redirectTo: '' },
+
 ];
 
 @NgModule({

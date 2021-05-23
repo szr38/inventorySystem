@@ -57,6 +57,9 @@ export class InventoryComponent implements OnInit {
   }
 
   formatLabel(value: number) {
+    if(value>=10000){
+      return '>' + (value);
+    }
     return '>' + value;
   }
 
