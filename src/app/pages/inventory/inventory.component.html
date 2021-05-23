@@ -46,15 +46,17 @@
         [displayWith]="formatLabel"
         step="1"
         min="0"
-        max="250"
+        max="25000"
         [(ngModel)]="searchNetWorth"
         aria-label="units"
         (valueChange)='applyFilterSearch()'>
       </mat-slider>
     </div>
+
+    <button mat-raised-button color="primary" (click)="onReset()">Reset</button>
   </div>
 
-  <div>
+  <div class="mt-2">
     <table mat-table [dataSource]="dataSource" matSort>
 
       <!-- name Column -->
