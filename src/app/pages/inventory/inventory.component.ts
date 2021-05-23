@@ -18,18 +18,21 @@ export class InventoryComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   product: productProcess[];
+  filter: string = '';
+  searchQuantity: number = 0;
+  searchPrice: number = 0;
+  searchNetWorth: number =0;
+
+  advanceFilter = false;
 
   constructor() {
-    console.log('product:', product);
     this.product = product.map(obj => {
       return {
         ...obj,
         netWorht: obj.price * obj.quantity
       }
     });
-    console.log(this.product);
     this.dataSource = new MatTableDataSource(this.product);
-    console.log('datasource: ', this.dataSource)
   }
 
   ngOnInit(): void {
@@ -40,15 +43,32 @@ export class InventoryComponent implements OnInit {
     this.dataSource.sort = this.sort;
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    const search = filterValue.trim().toLowerCase();
+
+  onButtonFilter() {
+    this.advanceFilter = !this.advanceFilter;
+  }
+
+  formatLabel(value: number) {
+    return '>' + value;
+  }
+
+  applyFilterSearch() {
+    const search = this.filter.trim().toLowerCase();
     let tempData = this.product.filter(data => data.name.toLowerCase().includes(search));
+    tempData = tempData.filter(data => data.quantity >= this.searchQuantity);
+    tempData = tempData.filter(data => data.price >= this.searchPrice);
+    tempData = tempData.filter(data => data.netWorht >= this.searchNetWorth);
     this.dataSource.data = tempData;
 
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+
+
+  getTotalCost() {
+    return this.dataSource.data.map(t => t.netWorht).reduce((acc, value) => acc + value, 0);
   }
 
 }
