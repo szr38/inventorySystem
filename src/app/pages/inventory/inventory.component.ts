@@ -7,6 +7,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { EditProductComponent } from '../component/edit-product/edit-product.component';
 import { DeleteProductComponent } from '../component/delete-product/delete-product.component';
 import { CreateProductComponent } from '../component/create-product/create-product.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -30,7 +31,8 @@ export class InventoryComponent implements OnInit {
 
   advanceFilter = false;
 
-  constructor(public dialog: MatDialog) {
+  constructor(public dialog: MatDialog,
+    private _snackBar: MatSnackBar,) {
     this.product = this.informationStatic.map(obj => {
       return {
         ...obj,
@@ -96,7 +98,7 @@ export class InventoryComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result: product) => {
       if(result){
-
+        this.openSnackBar('Updated successfully');
         this.product = this.product.map(prod => {
           if (prod.id === element.id) {
             return {
@@ -122,6 +124,7 @@ export class InventoryComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result: product) => {
       if(result){
+        this.openSnackBar('Created successfully');
         this.product.push({ ...result, netWorht: result.price * result.quantity })
         this.dataSource.data = this.product;
         this.dataSource._updateChangeSubscription();
@@ -138,6 +141,7 @@ export class InventoryComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result: Boolean) => {
       if (result) {
+        this.openSnackBar('Deleted successfully');
         this.product = this.product.filter(prod => prod.id != element.id);
         this.dataSource.data = this.product;
         this.dataSource._updateChangeSubscription();
@@ -146,7 +150,11 @@ export class InventoryComponent implements OnInit {
     });
   }
 
-
+  openSnackBar(message: string) {
+    this._snackBar.open(message, '', {
+      duration: 2500,
+    });
+  }
 
 
 
