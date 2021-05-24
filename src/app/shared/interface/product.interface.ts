@@ -1,4 +1,5 @@
 export interface product {
+    id:number;
     name: string;
     quantity: number;
     image: string;
@@ -6,6 +7,7 @@ export interface product {
 }
 
 export interface productProcess {
+    id:number;
     name: string;
     quantity: number;
     image: string;

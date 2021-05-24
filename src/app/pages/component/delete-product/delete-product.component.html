@@ -1,0 +1,10 @@
+<p>You want to delete this row</p>
+<div class="d-flex flex-column">
+    <span>Name: {{data.name}}</span>
+    <span>Price: {{data.price}}</span>
+    <span>Quantity:{{data.quantity}}</span>
+</div>
+<div class="d-flex flex-row justify-content-center">
+    <button mat-button [mat-dialog-close]=false color="warn">Cancel</button>
+    <button mat-button [mat-dialog-close]=true cdkFocusInitial color='primary'>Save</button>
+</div>

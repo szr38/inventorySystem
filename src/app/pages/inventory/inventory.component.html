@@ -1,12 +1,18 @@
 <div class="container mt-3">
   <div class="d-flex flex-row justify-content-between">
-    <mat-form-field class="col-5">
-      <mat-label>Filter</mat-label>
-      <input matInput (keyup)="applyFilterSearch()" placeholder="ovis" [(ngModel)]="filter">
-    </mat-form-field>
+    <div class="col-7">
+      <mat-form-field class="col-8">
+        <mat-label>Filter</mat-label>
+        <input matInput (keyup)="applyFilterSearch()" placeholder="ovis" [(ngModel)]="filter">
+      </mat-form-field>
 
-    <button mat-mini-fab aria-label="button filter" (click)="onButtonFilter()" [ngClass]="{'fav-filter': !advanceFilter, 'fav-filter-activated': advanceFilter}">
-      <mat-icon>filter_list</mat-icon>
+      <button mat-mini-fab aria-label="button filter" (click)="onButtonFilter()" class="ms-3" [ngClass]="{'fav-filter': !advanceFilter, 'fav-filter-activated': advanceFilter}">
+        <mat-icon>filter_list</mat-icon>
+      </button>
+    </div>
+
+    <button mat-mini-fab aria-label="button filter" (click)="openDialogCreate()" color='accent'>
+      <mat-icon>add</mat-icon>
     </button>
   </div>
 
@@ -95,6 +101,22 @@
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Net worth </th>
         <td mat-cell *matCellDef="let row"> {{row.netWorht |currency}} </td>
         <td mat-footer-cell *matFooterCellDef> <b>{{getTotalCost() |currency}} </b> </td>
+      </ng-container>
+
+      <!-- crud price -->
+      <ng-container matColumnDef="crud">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
+        <td mat-cell *matCellDef="let row">
+          <div class="d-flex flex-row justify-content-around">
+            <button mat-mini-fab color="primary" aria-label="edit" (click)="openDialogUpdate(row)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-mini-fab color="warn" aria-label="delete" (click)="openDialogDelete(row)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </td>
+        <td mat-footer-cell *matFooterCellDef></td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>

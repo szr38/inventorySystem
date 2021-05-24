@@ -1,0 +1,22 @@
+<h2>Create</h2>
+<form [formGroup]="form">
+    <mat-form-field class="">
+        <mat-label>Name</mat-label>
+        <input matInput placeholder="leopard" formControlName='name'>
+    </mat-form-field>
+
+    <mat-form-field class="ms-2">
+        <mat-label>Quantity</mat-label>
+        <input matInput placeholder="3" type="number" formControlName='quantity'>
+    </mat-form-field>
+
+    <mat-form-field class="ms-2">
+        <mat-label>Price</mat-label>
+        <input matInput placeholder="7.97" type="number" formControlName='price'>
+    </mat-form-field>
+</form>
+
+<div class="d-flex flex-row justify-content-center">
+    <button mat-button color="warn" mat-dialog-close>Cancel</button>
+    <button mat-button (click)="onSave()" cdkFocusInitial color='primary'>Save</button>
+</div>
